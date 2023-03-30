@@ -55,6 +55,7 @@ void merge_subarrays(int *a, int *b, size_t left, size_t mid, size_t right)
 	{
 		a[k] = b[k];
 	}
+
 }
 
 /**
@@ -70,11 +71,14 @@ void merge_sort_subarr(int *subarr, int *buff, size_t left, size_t right)
 {
 	size_t mid;
 
-	if (left < right)
+    if (!(subarr) || !(buff))
+        return;
+    
+	else if (left < right)
 	{
-		mid = (left + (right - left)) / 2;
+		mid = (left + right) / 2;
 		merge_sort_subarr(subarr, buff, left, mid);
-		merge_sort_subarr(subarr, buff, mid, right);
+		merge_sort_subarr(subarr, buff, mid + 1, right);
 		merge_subarrays(subarr, buff, left, mid, right);
 	}
 }
@@ -93,7 +97,7 @@ void merge_sort(int *array, size_t size)
 	if (array == NULL || size < 2)
 		return;
 
-	buff = malloc(sizeof(int) * size);
+	buff = malloc(sizeof(int*) * size);
 	if (buff == NULL)
 		return;
 
