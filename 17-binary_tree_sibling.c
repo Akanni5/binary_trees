@@ -9,13 +9,16 @@ binary_tree_t *binary_tree_sibling(binary_tree_t *node)
 {
 	binary_tree_t *sibling = NULL;
 	binary_tree_t *parent = NULL;
-	size_t size = sizeof(binary_tree_t);
 
 	if (!node || !node->parent)
 		return (NULL);
 	parent = node->parent;
-	sibling = (memcmp(parent->left, node, size) == 0) ?
-		parent->right : parent->left;
+	if (parent->left == node)
+		sibling = parent->right;
+	else if (parent->right == node)
+		sibling = parent->left;
+
+	return (sibling);
 
 	return (sibling);
 }
